@@ -1,0 +1,94 @@
+
+<!-- saved from url=(0060)http://uaf46365.ddns.uark.edu/paradigms/a3/instructions.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<style>
+		.toc {
+			margin-left: 30px;
+		}
+		.code {
+			margin-left: 30px;
+			color:#000000;
+			background-color:#ffffff;
+		}
+		.shell {
+			margin-left: 30px;
+			color:#000000;
+			background-color:#ffffff;
+		}
+	</style>
+</head>
+<body bgcolor="#d8ccdb"><br><br>
+<table align="center" cellpadding="50" border="1" bgcolor="#e8dceb" width="720"><tbody><tr><td>
+
+<h1>Assignment 3</h1>
+
+<p>For this assignment, you are asked to use your GasTank, Engine, and Auto classes from assignment 2 and create a GUI which presents the user with dialog windows for
+inputting information about an auto and driving trip. Once all of the information about your auto has been entered, your program must display a window which contains a description of the auto.  When that window is closed, your program must gather the data about the trip and then display a graphics panel on which is drawn a set of lines showing each leg of the trip, and text showing the end coordinates of each. You will need to read and learn about various GUI (<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/package-summary.html">awt</a> and <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/javax/swing/package-summary.html">swing</a>) classes, such as the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/Graphics.html">Graphics</a> class
+provided by Java, and this is intended to give you experience in learning API's. There are also some helpful examples in the lecture slides.
+(Specifically, the "GUI introduction" slides.)</p>
+
+<p>To show you what is expected, an example solution for this assignment, "Assignment3.jar" has been posted on the course site. To run it from the command line, type:
+</p><pre class="shell">java -jar Assignment3.jar
+</pre>
+Note that in some newer JDK versions, using some graphics cards with particular settings can cause standard Java UI elements to display incorrectly.  If you see partially missing text, disappearing text on buttons, etc., please try running Java with the command line option "-Dsun.java2d.d3d=false", similar to the following:
+</p><pre class="shell">java -Dsun.java2d.d3d=false -jar Assignment3.jar
+</pre>
+<p></p>
+
+<ol>
+	<li>Make a new copy of the files from Assignment 2.</li><br>
+
+	<li>Create a new class named Assignment3, which will first use a series of dialogs to prompt the user for all of the necessary information for an auto (in the following order):
+		<ol>
+			<li>Auto description</li>
+			<li>Fuel tank capacity</li>
+			<li>Engine description</li>
+			<li>Miles per gallon</li>
+			<li>Max speed</li>
+			<li>(Now a dialog displays all of the auto's info, before the next series of input dialogs)</li>
+			<li>The number of legs in the trip (you can assume that this number will never be greater than 10)</li>
+			<li>(For each leg of the trip, the following three input dialogs appear, in this order, one leg at a time, and each dialog should show the number of the leg that it is collecting info for)</li>
+			<li>The distance of the leg</li>
+			<li>The x ratio for the direction of the leg</li>
+			<li>The y ratio for the direction of the leg</li>
+		</ol>
+	Your assignment should be run using the command "java Assignment3".
+	</li><br>
+	
+	<li>When reading in the values which are integers, you should use Integer.parseInt (google it for documentation about how it works) to get the integer value of the value entered by the user.  Note that Integer.parseInt throws an exception if given something other than a valid number.  If such an exception occurs, you must catch the exception and display a dialog saying "Invalid data entered. Exiting." and then the program should immediately exit.  When reading in values for doubles, you should find the necessary function which is analogous to Integer.parseInt but used for doubles.</li><br>
+
+	<li>When any number other than the x ratio or y ratio are requested, if a negative number or zero is entered, your program should loop and keep redisplaying the same input dialog until a positive number is entered.</li><br>
+
+	<li>An Auto object should be created (along with the necessary GasTank and Engine objects) and all of the information about the auto and legs of the trip should be used to calculate the location of the auto and fuel level after each (just as in assignment 2).  Before beginning the first leg of the trip, the auto's tank should be filled, but it should not be filled again for subsequent legs.  All aspects of the calculations which were required for the previous assignment are required for this assignment, so make sure your code works and correct any bugs that existed in your last assignment.  You should not need to modify any of the classes from Assignment 2 as long as they are working correctly.</li><br>
+
+	<li>Finally, a JFrame object should be created which contains an instance of a panel class that you create (which should be in DrivePanel.java and named DrivePanel and will extend JPanel similar to the example DrawPanel class in section 4.15 of the book). On the panel should be drawn line segments corresponding to each leg of the trip, with the assumption that the first leg begins at point (0,0) and that point is located at the <b>bottom</b> left corner.  Keep in mind that graphics windows treat y=0 as the top of the window, with y-coordinates increasing downward, but we will assume the opposite to be in line with traditional coordinate systems.  Additionally, the location of the end of each leg should be written in text at the location 10 pixels to the right. (See the image example-output1.jpg for the output when the example provided in Assignment3.jar is given the following series of input: TestAuto, 50, V8, 50, 100, 3, 200, 2, 3, 300, -1, 4, 500, 2, -0.5.  That is, a trip of the three legs (200, 2, 3), (300, -1, 4), (500, 2, -0.5).)</li><br>
+	
+	<li>Your JFrame window must be created at size 600 x 600.  To get full points for this assignment, your JFrame window should correctly show the lines and end coordinates in text even after being resized.</li><br>
+
+	<li>Submit a file named Assignment3.zip. The zip file should contain exactly the source files GasTank.java, Engine.java, Auto.java, DrivePanel.java, and Assignment3.java.
+		Do not submit any other files.<br><br></li>
+		
+<li>
+Here is the rubric the grader will use when running your program.  Make sure your code meets each of these requirements.  Please keep in mind that this is a very large class and the TA does not have time to fix your code, rename files, etc.:
+<ol>
+<li>-25% Submitted file is not named Assignment3.zip
+<li>-90% Code does not compile</li>
+<li>-20% Incorrect files contained in the zip file</li>
+<li>-10% (each) Missing dialog box (30% total if it doesn't correctly loop for the required number of trip legs)</li>
+<li>-5%  (each) Incorrect text on dialog box (prompts for wrong information or doesn't correctly specify what is being asked for)</li>
+<li>-10% If invalid value is entered, does not display "Invalid data entered. Exiting." then correctly exit (e.g. a string is entered when an integer or double is expected)</li>
+<li>-5% If negative number is entered for numeric values other than x ratio or y ratio, the user is not prompted for the same information again</li>
+<li>-35% Missing frame and panel with trip legs</li>
+<li>-15% Lines are not correctly drawn</li>
+<li>-15% Text of end coordinates not correctly drawn</li>
+<li>-10% Lines and/or text drawn to window do not correctly appear after resizing window</li>
+<li>-10% (each) Incorrect computation performed by drive function of Auto (i.e. incorrect end coordinates computed and/or running out of gas not correctly determined).</li>
+<li>-2% (each) Missing name, date, or assignment description from comments at the top of every file.</li>
+</ol>
+</li>
+
+</ol>
+
+</td></tr></tbody></table>
+
+</body></html>
